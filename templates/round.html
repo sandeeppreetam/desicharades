@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div></div>
+    <h1>Round {{ roundnum }} / {{ rounds }}</h1>
+
+    <table>
+        <tr>
+            <th>Team</th>
+            <th>Score</th>
+        </tr>
+        {% for team, score in team_score|dictsort(score, reverse=False) %}
+        <tr>
+            <td>Team {{ team }}</td>
+            <td>{{ score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/game" method="post">
+        <input type="submit" name="submit_button"  value="Start">
+    </form>
+{% endblock %}

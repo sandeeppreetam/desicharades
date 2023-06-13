@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div></div>
+    <div></div>
+    <h1>Team {{ teamnum }}</h1>
+
+    <h1 class="big-text">{{ question }}</h1>
+
+    <div id="timer">Timer Starting!</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var timerElement = document.getElementById("timer");
+            var timeLeft = {{ roundtime|default(30) }}; // Timer duration in seconds
+
+            function startTimer() {
+                var minutes, seconds;
+                var timer = setInterval(function() {
+                    minutes = Math.floor(timeLeft / 60);
+                    seconds = timeLeft % 60;
+
+                    // Add leading zeros if necessary
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    timerElement.textContent = minutes + ":" + seconds;
+
+                    timeLeft--;
+
+                    if (timeLeft < 0) {
+                        clearInterval(timer);
+                        timerElement.textContent = "Time's up!";
+                        // Call your function here when the timer runs out
+                        handleTimerEnd();
+                    }
+                }, 1000); // Update every second
+            }
+
+            function handleTimerEnd() {
+                console.log("Timer has ended");
+                var button = document.getElementById("myButton");
+                button.style.display = "none";
+
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/game";
+
+                var timeLeftInput = document.createElement("input");
+                timeLeftInput.type = "hidden";
+                timeLeftInput.name = "time_left";
+                timeLeftInput.value = timeLeft;
+
+                form.appendChild(timeLeftInput);
+
+                var submitButton = document.createElement("input");
+                submitButton.type = "submit";
+                submitButton.name = "submit_button";
+                submitButton.value = "Next";
+
+                form.appendChild(submitButton);
+
+                // Append the form to the document
+                document.body.appendChild(form);
+
+                // Submit the form
+            }
+
+            // Start the timer when the page loads
+            startTimer();
+
+            // Attach an event listener to the submit button
+            var submitButton = document.getElementById("myButton");
+            submitButton.addEventListener("click", function() {
+                var timeLeftInput = document.createElement("input");
+                timeLeftInput.type = "hidden";
+                timeLeftInput.name = "time_left";
+                timeLeftInput.value = timeLeft;
+
+                var form = document.querySelector("form");
+                form.appendChild(timeLeftInput);
+            });
+        });
+    </script>
+
+    <form action="/game" method="post">
+        <input id="myButton" type="submit" name="submit_button" value="Correct">
+    </form>
+{% endblock %}

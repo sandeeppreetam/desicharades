@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h1>Start of Round </h1>
+    <h1>{{roundnum}}</h1>
+
+    <form action="/start" method="post">
+        <input type="submit" value="Start">
+    </form>
+
+{% endblock %}
