@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import pandas as pd
 import random
+from database import new_game
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 
 global roundnum
 global teamnum
@@ -26,6 +28,7 @@ def round():
         teams = int(request.form.get("numteams"))
         roundtime = int(request.form.get("roundtime"))
         language = request.form.get("language")
+        new_game(rounds, teams, roundtime, language, session.get('session_id'))
         global team_score
         team_score = {x+1 : 0 for x in range(teams)}
         return render_template("round.html", roundnum = roundnum, team_score = team_score, rounds = rounds)

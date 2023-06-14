@@ -6,14 +6,6 @@ connection_string = os.getenv("connection_string")
 engine = create_engine(connection_string, echo=True)
 
 
-def execute(sql):
-    with engine.connect() as conn:
-        result = conn.execute(text(sql))
-        columns = result.keys()
-        rows = result.fetchall()
-        output = [dict(zip(columns, row)) for row in rows]
-        return output
-
 def new_game(rounds, teams, roundtime, language, session_id):
     with engine.begin() as conn:
         query = text("INSERT INTO game_details (rounds, teams, roundtime, language, session_id) VALUES (:rounds, :teams, :roundtime, :language, :session_id)")
@@ -25,3 +17,6 @@ def new_game(rounds, teams, roundtime, language, session_id):
         except Exception as e:
             conn.rollback()  # Rollback the transaction
             print(f"Error: {e}")
+
+
+new_game(2, 3, 60, 'telugu', '10acwdd22')
