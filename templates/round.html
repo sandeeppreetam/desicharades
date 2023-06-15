@@ -20,4 +20,9 @@
     <form action="/game/{{ game_id }}" method="post">
         <input type="submit" name="submit_button"  value="Start">
     </form>
+
+    <h3 style="text-align: center; margin-top: 20px">Scoring: </h3>
+    <p style="text-align: center; center; margin-left: 20px; margin-right: 20px;">
+      If guessed correctly, the points awarded are equal to the duration of the round plus the remaining seconds in the round.
+    </p>
 {% endblock %}
