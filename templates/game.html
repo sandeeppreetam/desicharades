@@ -44,7 +44,7 @@
 
                 var form = document.createElement("form");
                 form.method = "POST";
-                form.action = "/game";
+                form.action = "/game/{{ game_id }}";
 
                 var timeLeftInput = document.createElement("input");
                 timeLeftInput.type = "hidden";
@@ -83,7 +83,7 @@
         });
     </script>
 
-    <form action="/game" method="post">
+    <form action="/game/{{ game_id }}" method="post">
         <input id="myButton" type="submit" name="submit_button" value="Correct">
     </form>
 {% endblock %}

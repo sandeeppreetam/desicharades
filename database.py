@@ -25,3 +25,24 @@ def new_game(rounds, teams, roundtime, language, session_id):
         except Exception as e:
             conn.rollback()  # Rollback the transaction
             print(f"Error: {e}")
+
+def scores(game_id, teamnum):
+  curr_team = 1
+  while curr_team <= teamnum:
+    new_score(game_id, curr_team)
+    curr_team = curr_team + 1
+          
+def new_score(game_id, team_id):
+    with engine.begin() as conn:
+        query = text("INSERT INTO scores (game_id, team_id, score) VALUES (:game_id, :team_id, :score)")
+        try:
+            conn.execute(query, {"game_id": game_id, "team_id": team_id, "score": 0})
+            conn.commit()  # Manually commit the transaction
+            print("Values inserted successfully!")
+        except Exception as e:
+            conn.rollback()  # Rollback the transaction
+            print(f"Error: {e}")
+
+
+    
+  
