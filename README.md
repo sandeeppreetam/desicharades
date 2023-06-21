@@ -1,4 +1,4 @@
-# DESI CHARADES : test here: < href= "https://partygames.onrender.com/">
+# DESI CHARADES : Check here https://partygames.onrender.com/
 #### Video Demo:  https://www.loom.com/share/e49dd6e876484055aed8ea964180a45a
 #### Description:
 Desi Charades is an digitized and indian version of the good old favourite dumbcharades game.
